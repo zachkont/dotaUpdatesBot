@@ -15,8 +15,6 @@ Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot 
 
 Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) dota2api
 
-Run RRR.py using python 2.7
-
 
 
 ## Commands
