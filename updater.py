@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import time
-from time import localtime
 import datetime
 import sys
 import telebot

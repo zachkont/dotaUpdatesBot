@@ -1,7 +1,6 @@
 import telebot
 import requests
 import feedparser
-from datetime import datetime
 import dota2api
 
 from utils import *
@@ -49,7 +48,7 @@ def dota_blog(message):
         dota_blog_rss_url = "http://blog.dota2.com/feed/"
         feed = feedparser.parse( dota_blog_rss_url )
         content = unicode(feed["items"][0]["summary"])
-        content, trash = content.split('&#8230', 1 )
+        content = content.split('&#8230', 1 )
         bot.send_message(cid, '*{title}* ```\n\n{content}...\n\n```'.format(title=feed[ "items" ][0][ "title" ], content=content) + '[Read the entire blog post in your browser]({url})'.format(url=feed[ "items" ][0][ "link" ]), parse_mode="Markdown", disable_web_page_preview=True)
 
 @bot.message_handler(commands=['subscribe', 'letmeknow'])
