@@ -1,14 +1,16 @@
 from __future__ import print_function
 
 import time
-import datetime
+from datetime import datetime
 import sys
 import telebot
 import json
-
-from utils import *
-
 import feedparser
+from utils import loadjson
+
+from settings import BOT_TOKEN
+
+
 
 print("updater started")
 
@@ -17,12 +19,12 @@ steam_news_json_url = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v000
 belvedere_reddit_rss_url = "https://www.reddit.com/user/SirBelvedere/.rss"
 cyborgmatt_reddit_rss_url = "https://www.reddit.com/user/Cyborgmatt/.rss"
 
-bot = telebot.TeleBot("115117842:AAFTAQjUEjs9ZBJRqr5SxGD-UNeSYE0flq0")
+bot = telebot.TeleBot(BOT_TOKEN)
 
-stdout =  open('C:\dotaUpdatesBot\stdout.txt', 'a')
+stdout =  open('stdout.txt', 'a')
 sys.stdout = stdout
 
-log = open(r'C:\dotaUpdatesBot\log.txt', 'a')
+log = open(r'log.txt', 'a')
 
 while True:
 

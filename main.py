@@ -2,16 +2,15 @@ import telebot
 import requests
 import feedparser
 import dota2api
-
 from utils import *
+
+from settings import BOT_TOKEN, DOTA2API_TOKEN
 
 print("main started")
 
-bot_token="115117842:AAFTAQjUEjs9ZBJRqr5SxGD-UNeSYE0flq0"
-dota2api_token = "4D9BEC5459574FF6B838D864B1E8EA8D"
 
-bot = telebot.TeleBot(bot_token)
-api = dota2api.Initialise(dota2api_token)
+bot = telebot.TeleBot(BOT_TOKEN)
+api = dota2api.Initialise(DOTA2API_TOKEN)
 
 heroes_list = api.get_heroes()
 heroes_list = heroes_list["heroes"]

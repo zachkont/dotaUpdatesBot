@@ -12,12 +12,12 @@ import re
 import datetime
 import binascii
 from bs4 import BeautifulSoup
-from telebot import types
+import telebot
 from sortedcontainers import SortedDict
 from datetime import datetime
+from settings import BOT_TOKEN
 
-
-# keys 
+# keys
 
 # weather_api = "OPENWEATHERMAP API KEY"
 # google_img_key = "GOOGLE API KEY"
@@ -33,16 +33,16 @@ from datetime import datetime
 # consumer_secret = 'TWITTER CONSUMER SECRET KEY'
 # access_token = 'TWITTER ACCESS TOKEN'
 # access_secret = 'TWITTER ACCESS SECRET'
- 
+
 # auth = OAuthHandler(consumer_key, consumer_secret)
 # auth.set_access_token(access_token, access_secret)
- 
+
 # api = tweepy.API(auth)
 
 # bot and admin chat id
 
-bot = telebot.TeleBot("115117842:AAFTAQjUEjs9ZBJRqr5SxGD-UNeSYE0flq0")
-adminid = bot.get_me().id
+bot = telebot.TeleBot("BOT_TOKEN")
+adminid = bot.get_me()
 
 
 uptime = datetime.now()
@@ -206,7 +206,7 @@ def getTodoList(userID):
 		return data[str(userID)]
 	else:
 		return ""
-		
+
 
 def setTodoList(userID, content, mode):
 	with open('todolists.json') as f:
@@ -245,7 +245,7 @@ def addUser(userID, userName, filename):
 	data.update(user)
 	with open(filename + '.json', 'w') as f:
 		json.dump(data, f)
-        
+
 def loadjson(filename):
 	with open(filename + '.json') as f:
 		data = json.load(f)
@@ -424,7 +424,7 @@ mentionadmin = [
 		"`Oh look at me I am your dev and you should answer when I call you`"
 ]
 premades = {
-	'destroy': 	
+	'destroy':
 		u"`.             D`\n"
 		u"`            D E`\n"
 		u"`          D E S`\n"
@@ -440,7 +440,7 @@ premades = {
 		u"`O Y E D`\n"
 		u"`Y E D`\n"
 		u"`E D`\n"
-		u"`D`\n", 
+		u"`D`\n",
 	'ememe':
 		u'`E X C E L E N T E`\n'
 		u'            `M E M E`',
@@ -466,7 +466,7 @@ savage = [
 		u'\U0001F4AF'
 ]
 text_messages = {
-	'help': 
+	'help':
 		u'`Greetings, Im RadRetroRobot, RRR for short, and these are the commands that I have available for you.`\n\n'
 		u'`>` /help\n'
 		u'`>` /ping\n'
@@ -497,7 +497,7 @@ text_messages = {
 		u'`\n\nFollow any command with "-?" to get more information`'
 
 		,
-	'start': 
+	'start':
 		u'`Welcome back to our personal chat! Remember that you can send` /help `to get a list my commands.`',
 	'ping':
 		u'`Hello! This is Rad Retro Robot and you are {name} {lname}({uid}), your username is` @{uname}',
