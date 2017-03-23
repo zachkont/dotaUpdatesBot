@@ -1,6 +1,6 @@
 *.json
 settings.py
-settings.pyc
+*.pyc
 ENV
 log.txt
 stdout.txt

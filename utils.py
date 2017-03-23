@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import sys
-import random
 import telebot
 import requests
 import time
@@ -12,7 +9,6 @@ import re
 import datetime
 import binascii
 from bs4 import BeautifulSoup
-import telebot
 from sortedcontainers import SortedDict
 from datetime import datetime
 from settings import BOT_TOKEN
@@ -200,7 +196,6 @@ def getContent(text):
 def getTodoList(userID):
 	with open('todolists.json') as f:
 		data = json.load(f)
-	listcontent = ""
 	if str(userID) in data:
 		#print data[userID]
 		return data[str(userID)]
@@ -267,7 +262,6 @@ def deljson(value, filename):
 			with open(filename + '.json', 'w') as f:
 				json.dump(data, f)
 			return True
-			break
 	return False
 
 
