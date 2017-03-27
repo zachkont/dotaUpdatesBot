@@ -1,4 +1,4 @@
-telebot
+pyTelegramBotAPI==1.4.2
 feedparser
 sortedcontainers
 bs4

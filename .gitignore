@@ -4,3 +4,4 @@ settings.py
 ENV
 log.txt
 stdout.txt
+test*

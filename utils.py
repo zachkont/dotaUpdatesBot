@@ -37,7 +37,7 @@ from settings import BOT_TOKEN
 
 # bot and admin chat id
 
-bot = telebot.TeleBot("BOT_TOKEN")
+bot = telebot.TeleBot(BOT_TOKEN)
 adminid = bot.get_me()
 
 
