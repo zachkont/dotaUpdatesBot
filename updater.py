@@ -171,7 +171,7 @@ while True:
         #    print (belve_feed["items"][0]["title"] + " |time: %s" %str(datetime.now()))
         #except:
         #    print ("%s MANASU. ECODE:9002"%str(datetime.now()), file=log)
-        for post in belve_feed.entries:
+        for post in magesunite_feed.entries:
             if post.title not in loadjson("previousmagesunite"):
                 if (("/u/Magesunite on" not in post.title) and ("Dota 2 Update" in post.title)):
                     for uid in loadjson("userlist"):
