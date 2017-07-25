@@ -1,3 +1,4 @@
 # settings.py
 BOT_TOKEN = ''
 DOTA2API_TOKEN = ''
+CRISIS_ACCOUNT = ''

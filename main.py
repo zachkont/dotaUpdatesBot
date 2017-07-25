@@ -145,5 +145,7 @@ def find_match(message):
         else:
             bot.reply_to(message, "`wat`", parse_mode="Markdown")
 
-
-bot.polling()
+try:
+	bot.polling()
+except:
+	print ("%s Unexpected error. ECODE:0000"%str(datetime.now()))

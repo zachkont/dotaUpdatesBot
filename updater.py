@@ -9,6 +9,7 @@ import feedparser
 from utils import loadjson
 
 from settings import BOT_TOKEN
+from settings import CRISIS_ACCOUNT
 
 
 
@@ -18,6 +19,7 @@ dota_blog_rss_url = "http://blog.dota2.com/feed/"
 steam_news_json_url = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=570&maxlength=300&format=json"
 belvedere_reddit_rss_url = "https://www.reddit.com/user/SirBelvedere/.rss"
 cyborgmatt_reddit_rss_url = "https://www.reddit.com/user/Cyborgmatt/.rss"
+magesunite_reddit_rss_url = "https://www.reddit.com/user/Magesunite/.rss"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -74,7 +76,19 @@ while True:
             cyborgmatt_content = None
     except:
         cyborgmatt_content = None
-        print ("%s Unexpected error. ECODE:1003"%str(datetime.now()), file=log)
+        print ("%s Unexpected error. ECODE:1013"%str(datetime.now()), file=log)
+
+    try:
+        magesunite_feed = feedparser.parse( magesunite_reddit_rss_url )
+        #print ("Magesunite feed status= " + magesunite_feed.status)
+        if magesunite_feed.status == 200:
+            magesunite_content = magesunite_feed["items"][0]["summary"]
+            magesunite_content = magesunite_content[1:100]
+        else:
+            magesunite_content = None
+    except:
+        magesunite_content = None
+        print ("%s Unexpected error. ECODE:1023"%str(datetime.now()), file=log)
 
     if blog_content is not None:
         #try:
@@ -98,7 +112,7 @@ while True:
                 with open('previousblogposts.json') as f:
                     data = json.load(f)
                 data.update(entry)
-                with open('previousblogposts.json', 'w') as f:
+                with open('previousblogposts.json', 'w+') as f:
                     json.dump(data, f)
 
     #if data is not None:
@@ -149,7 +163,32 @@ while True:
                     with open('previousbelvedere.json') as f:
                         data = json.load(f)
                     data.update(entry)
-                    with open('previousbelvedere.json', 'w') as f:
+                    with open('previousbelvedere.json', 'w+') as f:
+                        json.dump(data, f)
+
+    if mages_content is not None:
+        #try:
+        #    print (belve_feed["items"][0]["title"] + " |time: %s" %str(datetime.now()))
+        #except:
+        #    print ("%s MANASU. ECODE:9002"%str(datetime.now()), file=log)
+        for post in magesunite_feed.entries:
+            if post.title not in loadjson("previousmagesunite"):
+                if (("/u/Magesunite on" not in post.title) and ("Dota 2 Update" in post.title)):
+                    for uid in loadjson("userlist"):
+                        try:
+                            bot.send_message(uid, '[New post from Magesunite!]({url}) \n\n *{title}* ```\n\n```'.format(url = post.link ,title=post.title), parse_mode="Markdown")
+                        except:
+                            print ("%s Unexpected error. ECODE:0015"%str(datetime.now()), file=log)
+                    for gid in loadjson("grouplist").keys():
+                        try:
+                            bot.send_message(gid, '[New post from Magesunite!]({url}) \n\n *{title}* ```\n\n```'.format(url = post.link ,title=post.title), parse_mode="Markdown")
+                        except:
+                            print ("%s Unexpected error. ECODE:0016"%str(datetime.now()), file=log)
+                    entry = { post.title : post.link }
+                    with open('previousmagesunite.json') as f:
+                        data = json.load(f)
+                    data.update(entry)
+                    with open('previousmagesunite.json', 'w+') as f:
                         json.dump(data, f)
 
     if cyborgmatt_content is not None:
@@ -164,22 +203,22 @@ while True:
                         try:
                             bot.send_message(uid, '[New post from Cyborgmatt!]({url}) \n\n *{title}* ```\n\n```'.format(url = post.link ,title=post.title), parse_mode="Markdown")
                         except:
-                            print ("%s Unexpected error. ECODE:0005"%str(datetime.now()), file=log)
+                            print ("%s Unexpected error. ECODE:0025"%str(datetime.now()), file=log)
                     for gid in loadjson("grouplist").keys():
                         try:
                             bot.send_message(gid, '[New post from Cyborgmatt!]({url}) \n\n *{title}* ```\n\n```'.format(url = post.link ,title=post.title), parse_mode="Markdown")
                         except:
-                            print ("%s Unexpected error. ECODE:0006"%str(datetime.now()), file=log)
+                            print ("%s Unexpected error. ECODE:0026"%str(datetime.now()), file=log)
                     entry = { post.title : post.link }
                     with open('previouscyborgmatt.json') as f:
                         data = json.load(f)
                     data.update(entry)
-                    with open('previouscyborgmatt.json', 'w') as f:
+                    with open('previouscyborgmatt.json', 'w+') as f:
                         json.dump(data, f)
 
     time.sleep(180)
 
 try:
-    bot.send_message("76932858", "Something terrible has happenned!!!!!!!!!!")
+    bot.send_message(CRISIS_ACCOUNT, "Something terrible has happenned!!!!!!!!!!")
 except:
     print ("%s Unexpected error. ECODE:1111"%str(datetime.now()), file=log)
