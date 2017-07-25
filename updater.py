@@ -77,8 +77,8 @@ while True:
     except:
         cyborgmatt_content = None
         print ("%s Unexpected error. ECODE:1013"%str(datetime.now()), file=log)
-
-	try:
+		
+    try:
         magesunite_feed = feedparser.parse( magesunite_reddit_rss_url )
         #print ("Magesunite feed status= " + magesunite_feed.status)
         if magesunite_feed.status == 200:
