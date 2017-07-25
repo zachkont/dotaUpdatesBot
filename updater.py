@@ -166,7 +166,7 @@ while True:
                     with open('previousbelvedere.json', 'w+') as f:
                         json.dump(data, f)
 						
-	if mages_content is not None:
+    if mages_content is not None:
         #try:
         #    print (belve_feed["items"][0]["title"] + " |time: %s" %str(datetime.now()))
         #except:
