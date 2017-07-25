@@ -1,5 +1,9 @@
 *.json
 settings.py
+__init__.py
+ohno.py
+setup.py
+*.bat
 *.pyc
 ENV
 log.txt
