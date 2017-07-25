@@ -77,7 +77,7 @@ while True:
     except:
         cyborgmatt_content = None
         print ("%s Unexpected error. ECODE:1013"%str(datetime.now()), file=log)
-		
+
     try:
         magesunite_feed = feedparser.parse( magesunite_reddit_rss_url )
         #print ("Magesunite feed status= " + magesunite_feed.status)
@@ -89,7 +89,7 @@ while True:
     except:
         magesunite_content = None
         print ("%s Unexpected error. ECODE:1023"%str(datetime.now()), file=log)
-		
+
     if blog_content is not None:
         #try:
         #    print (blog_feed["items"][0]["title"] + " |time: %s" %str(datetime.now()))
@@ -165,7 +165,7 @@ while True:
                     data.update(entry)
                     with open('previousbelvedere.json', 'w+') as f:
                         json.dump(data, f)
-						
+
     if mages_content is not None:
         #try:
         #    print (belve_feed["items"][0]["title"] + " |time: %s" %str(datetime.now()))
@@ -190,7 +190,6 @@ while True:
                     data.update(entry)
                     with open('previousmagesunite.json', 'w+') as f:
                         json.dump(data, f)
-					
 
     if cyborgmatt_content is not None:
         #try:
@@ -220,6 +219,6 @@ while True:
     time.sleep(180)
 
 try:
-    bot.send_message("76932858", "Something terrible has happenned!!!!!!!!!!")
+    bot.send_message(CRISIS_ACCOUNT, "Something terrible has happenned!!!!!!!!!!")
 except:
     print ("%s Unexpected error. ECODE:1111"%str(datetime.now()), file=log)
