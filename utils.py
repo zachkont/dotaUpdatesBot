@@ -280,7 +280,7 @@ def intime(message):
 """
 fuckyou_response = [
 		"`Sorry, I am not that kind of robot.`"
-		"`I am not capable of doing that, that is for a diferent kind of robot.`"
+		"`I am not capable of doing that, that is for a different kind of robot.`"
 		"`NameError: global name 'Fuck' not defined.`",
 		"`Oh puny human, I am not able to do that for you, go ahead and do it yourself.`",
 		"`Haha, no.`",
