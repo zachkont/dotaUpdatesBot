@@ -1,4 +1,5 @@
 import telebot
+import logging
 import requests
 import feedparser
 import dota2api
@@ -6,10 +7,10 @@ from utils import *
 
 from settings import BOT_TOKEN, DOTA2API_TOKEN
 
-print("main started")
 
 
 bot = telebot.TeleBot(BOT_TOKEN)
+telebot.logger.setLevel(logging.ERROR)
 api = dota2api.Initialise(DOTA2API_TOKEN)
 
 heroes_list = api.get_heroes()
@@ -145,7 +146,11 @@ def find_match(message):
         else:
             bot.reply_to(message, "`wat`", parse_mode="Markdown")
 
-try:
-	bot.polling()
-except:
-	print ("%s Unexpected error. ECODE:0000"%str(datetime.now()))
+
+if __name__ == '__main__':
+    print("main started")
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except Exception as ex:
+            telebot.logger.error(ex)
