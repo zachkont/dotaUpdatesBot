@@ -3,11 +3,11 @@
 from __future__ import print_function
 
 import json
-import threading
+import time
 import feedparser
 
-from datetime import datetime, time
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 from utils import bot, loadjson
 
@@ -43,23 +43,17 @@ def get_reddit_preview(text):
 
 def get_relevant_sirbelvedere_posts():
     posts = get_reddit_user_posts("SirBelvedere")
-    return [post for post in posts if
-            ("/u/SirBelvedere on" not in post.title)
-            and ("Dota 2 Update" in post.title)]
+    return [post for post in posts if ("/u/SirBelvedere on" not in post.title) and ("Dota 2 Update" in post.title)]
 
 
 def get_relevant_cyborgmatt_posts():
     posts = get_reddit_user_posts("Cyborgmatt")
-    return [post for post in posts if
-            ("/u/Cyborgmatt on" not in post.title)
-            and ("Dota 2 Update" in post.title)]
+    return [post for post in posts if ("/u/Cyborgmatt on" not in post.title) and ("Dota 2 Update" in post.title)]
 
 
 def get_relevant_magesunite_posts():
     posts = get_reddit_user_posts("Magesunite")
-    return [post for post in posts if
-            ("/u/Magesunite on" not in post.title)
-            and ("Dota 2 Update" in post.title)]
+    return [post for post in posts if ("/u/Magesunite on" not in post.title) and ("Dota 2 Update" in post.title)]
 
 
 def post_is_fresh(post, filename):
@@ -93,7 +87,6 @@ def notify_users_and_groups(message):
 def notify_subscriber_about_reddit(username, posts):
     if posts is None:
         return
-
     for post in posts:
         if post_is_fresh(post, "previous{}".format(username.lower())):
             # Compose message text
@@ -108,7 +101,6 @@ def notify_subscriber_about_reddit(username, posts):
 def notify_subscriber_about_dota2blog(posts):
     if posts is None:
         return
-
     for post in posts:
         if post_is_fresh(post, "previousblogposts"):
             # Compose message text
@@ -133,7 +125,8 @@ def check_for_updates_and_notify():
     posts = get_dota2blog_posts()
     notify_subscriber_about_dota2blog(posts)
 
-    threading.Timer(180, check_for_updates_and_notify).start()
 
-
-check_for_updates_and_notify()
+print("{}: Updating started!".format(datetime.now()), file=log)
+while True:
+    check_for_updates_and_notify()
+    time.sleep(180)
