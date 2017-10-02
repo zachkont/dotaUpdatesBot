@@ -126,7 +126,7 @@ def check_for_updates_and_notify():
     notify_subscriber_about_dota2blog(posts)
 
 
-print("{}: Updating started!".format(datetime.now()), file=log)
+print("{}: Checking for new posts has started!".format(datetime.now()), file=log)
 while True:
     check_for_updates_and_notify()
     time.sleep(180)
