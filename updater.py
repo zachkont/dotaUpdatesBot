@@ -10,6 +10,10 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from utils import bot, loadjson
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 log = open('log.txt', 'a')
 
