@@ -129,58 +129,65 @@ def find_match(message):
 
         match_id = message.text
         match_id = match_id.split()[1]
-        match = api.get_match_details(match_id)
+        try:
+            match = api.get_match_details(match_id)
 
-        url = match.url
-        request = requests.get(url)
-        match_data = request.json()
+            url = match.url
+            request = requests.get(url)
+            match_data = request.json()
 
-        if content != "?":
-            if request.status_code == 200:
-                hero_list = []
-                if match_data['result']['radiant_win']:
-                    title = "Radiant!"
+            if content != "?":
+                if request.status_code == 200:
+                    hero_list = []
+                    if match_data['result']['radiant_win']:
+                        title = "Radiant!"
+                    else:
+                        title = "Dire!"
+
+                    url = "http://www.dotabuff.com/matches/" + match_id
+
+                    radiant_content = ""
+                    dire_content = ""
+                    for player in match_data['result']['players']:
+                        if player['player_slot'] < 100:  # radiant
+                            for hero in heroes_list:
+                                if hero['id'] == player['hero_id']:
+                                    hero_list.append(hero['localized_name'])
+                                    radiant_content = (radiant_content +
+                                        hero['localized_name'] + " " +
+                                        str(player['kills']) + "/" +
+                                        str(player['deaths']) + "/" +
+                                        str(player['assists']) + '\n')
+                        else:  # dire
+                            for hero in heroes_list:
+                                if hero['id'] == player['hero_id']:
+                                    hero_list.append(hero['localized_name'])
+                                    dire_content = (dire_content +
+                                        hero['localized_name'] + " " +
+                                        str(player['kills']) + "/" +
+                                        str(player['deaths']) + "/" +
+                                        str(player['assists']) + '\n')
+
+                    bot.send_message(
+                        cid,
+                        'Winner:  *{title}* \n _Radiant:_ \n{radiant}\n _Dire:_\n{dire}\n'
+                        .format(title=title, radiant=radiant_content, dire=dire_content)
+                        + '[Dotabuff link]({url})'.format(url=url),
+                        parse_mode="Markdown",
+                        disable_web_page_preview=True)
                 else:
-                    title = "Dire!"
-
-                url = "http://www.dotabuff.com/matches/" + match_id
-
-                radiant_content = ""
-                dire_content = ""
-                for player in match_data['result']['players']:
-                    if player['player_slot'] < 100:  # radiant
-                        for hero in heroes_list:
-                            if hero['id'] == player['hero_id']:
-                                hero_list.append(hero['localized_name'])
-                                radiant_content = (radiant_content +
-                                    hero['localized_name'] + " " +
-                                    str(player['kills']) + "/" +
-                                    str(player['deaths']) + "/" +
-                                    str(player['assists']) + '\n')
-                    else:  # dire
-                        for hero in heroes_list:
-                            if hero['id'] == player['hero_id']:
-                                hero_list.append(hero['localized_name'])
-                                dire_content = (dire_content +
-                                    hero['localized_name'] + " " +
-                                    str(player['kills']) + "/" +
-                                    str(player['deaths']) + "/" +
-                                    str(player['assists']) + '\n')
-
-                bot.send_message(
-                    cid,
-                    'Winner:  *{title}* \n _Radiant:_ \n{radiant}\n _Dire:_\n{dire}\n'
-                    .format(title=title, radiant=radiant_content, dire=dire_content)
-                    + '[Dotabuff link]({url})'.format(url=url),
-                    parse_mode="Markdown",
-                    disable_web_page_preview=True)
+                    bot.reply_to(
+                        message,
+                        "`There has been an error, the number {error} to be specific.`".format(error=request.status_code),
+                        parse_mode="Markdown")
             else:
-                bot.reply_to(
-                    message,
-                    "`There has been an error, the number {error} to be specific.`".format(error=request.status_code),
-                    parse_mode="Markdown")
-        else:
-            bot.reply_to(message, "`wat`", parse_mode="Markdown")
+                bot.reply_to(message, "`wat`", parse_mode="Markdown")
+        except Exception as ex:
+            bot.reply_to(
+                message,
+                "There has been an error, its message is:\n `{error}`".format(error=ex.msg),
+                parse_mode="Markdown")
+            telebot.logger.error(ex)
 
 
 if __name__ == '__main__':
