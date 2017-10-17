@@ -7,4 +7,5 @@ setup.py
 ENV
 log.txt
 stdout.txt
+htmlcov/
 test*
