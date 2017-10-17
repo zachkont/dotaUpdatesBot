@@ -81,7 +81,7 @@ def start_subscription(message):
     if message.chat.type == 'private':
         if uid not in loadjson("userlist"):
             addUser(uid, message.from_user.first_name, "userlist")
-            bot.send_message(uid, 'egine eisgwrh', parse_mode="Markdown")
+            bot.send_message(uid, 'You will now receive updates!', parse_mode="Markdown")
         else:
             bot.send_message(uid, 'halloooooo', parse_mode="Markdown")
     elif message.chat.type == 'group' or message.chat.type == 'supergroup':
@@ -152,22 +152,20 @@ def find_match(message):
                         for hero in heroes_list:
                             if hero['id'] == player['hero_id']:
                                 hero_list.append(hero['localized_name'])
-                                radiant_content = \
-                                    radiant_content \
-                                    + hero['localized_name'] + " " \
-                                    + str(player['kills']) + "/" \
-                                    + str(player['deaths']) + "/" \
-                                    + str(player['assists']) + '\n'
+                                radiant_content = (radiant_content + 
+                                    hero['localized_name'] + " " +
+                                    str(player['kills']) + "/" +
+                                    str(player['deaths']) + "/" +
+                                    str(player['assists']) + '\n')
                     else:  # dire
                         for hero in heroes_list:
                             if hero['id'] == player['hero_id']:
                                 hero_list.append(hero['localized_name'])
-                                dire_content = \
-                                    + dire_content \
-                                    + hero['localized_name'] + " " \
-                                    + str(player['kills']) + "/" \
-                                    + str(player['deaths']) + "/" \
-                                    + str(player['assists']) + '\n'
+                                dire_content = (dire_content +
+                                    hero['localized_name'] + " " +
+                                    str(player['kills']) + "/" +
+                                    str(player['deaths']) + "/" +
+                                    str(player['assists']) + '\n')
 
                 bot.send_message(
                     cid,
