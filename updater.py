@@ -77,14 +77,16 @@ def notify_users_and_groups(message):
     for user_id in loadjson("userlist"):
         try:
             bot.send_message(user_id, message, parse_mode="Markdown")
-        except:
+        except Exception as ex:
+            telebot.logger.error(ex)
             print("{}: Message could not be sent to users".format(datetime.now()), file=log)
 
     # Notify subscribed groups
     for gid in loadjson("grouplist").keys():
         try:
             bot.send_message(gid, message, parse_mode="Markdown")
-        except:
+        except Exception as ex:
+            telebot.logger.error(ex)
             print("{}: Message could not be sent to groups".format(datetime.now()), file=log)
 
 
