@@ -7,6 +7,24 @@ The following is a set of guidelines for contributing to dotaUpdatesBot which is
 
 #### Table Of Contents
 
+- [Contributing to dotaUpdatesBot](#contributing-to-dotaupdatesbot)
+      - [Table Of Contents](#table-of-contents)
+  * [The team](#the-team)
+  * [Where can I ask a question?](#where-can-i-ask-a-question-)
+  * [About the project](#about-the-project)
+    + [What is Telegram](#what-is-telegram)
+    + [What are telegram bots](#what-are-telegram-bots)
+    + [What is dota2](#what-is-dota2)
+    + [So what is this for?](#so-what-is-this-for-)
+  * [How to contribute](#how-to-contribute)
+    + [Non-code contribution](#non-code-contribution)
+    + [Code contribution](#code-contribution)
+  * [How to test your code](#how-to-test-your-code)
+    + [Automated Linter](#automated-linter)
+    + [Styling guide](#styling-guide)
+      - [Git Commit Messages](#git-commit-messages)
+      - [Python Styleguide](#python-styleguide)
+
 ## The team
 
 The developer team is basically just the owner of the project (and his alt account) but there have been quite a few contributions in github already. One of them could be you!
