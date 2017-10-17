@@ -12,10 +12,15 @@ from datetime import datetime
 from utils import bot, loadjson
 import sys
 
+import logging
+
+log = logging.getLogger(__name__)
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-log = open('log.txt', 'a')
+logfd = open('log.txt', 'a')
+logging.basicConfig(stream=logfd, level=logging.INFO, format='%(asctime)s [%(levelname)7s] %(message)s')
 
 
 def get_rss_posts(url, error_message):
@@ -24,7 +29,7 @@ def get_rss_posts(url, error_message):
         posts = feed.entries
     else:
         posts = None
-        print("{}: {}".format(datetime.now(), error_message), file=log)
+        log.error(error_message)
     return posts
 
 
@@ -79,7 +84,7 @@ def notify_users_and_groups(message):
             bot.send_message(user_id, message, parse_mode="Markdown")
         except Exception as ex:
             telebot.logger.error(ex)
-            print("{}: Message could not be sent to users".format(datetime.now()), file=log)
+            log.error("Message could not be sent to users")
 
     # Notify subscribed groups
     for gid in loadjson("grouplist").keys():
@@ -87,7 +92,7 @@ def notify_users_and_groups(message):
             bot.send_message(gid, message, parse_mode="Markdown")
         except Exception as ex:
             telebot.logger.error(ex)
-            print("{}: Message could not be sent to groups".format(datetime.now()), file=log)
+            log.error("Message could not be sent to groups")
 
 
 def notify_subscriber_about_reddit(username, posts):
@@ -132,7 +137,7 @@ def check_for_updates_and_notify():
     notify_subscriber_about_dota2blog(posts)
 
 
-print("{}: Checking for new posts has started!".format(datetime.now()), file=log)
+log.info("Checking for new posts has started!")
 while True:
     check_for_updates_and_notify()
     time.sleep(60)
