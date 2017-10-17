@@ -65,11 +65,11 @@ def post_is_fresh(post, filename):
 
 
 def add_post_to_unfresh_list(post, filename):
-    f = open(filename, 'w+')
-    data = json.load(f)
+    with open(filename, 'r') as f:
+        data = json.load(f)
     data.update({post.title: post.link})
-    json.dump(data, f)
-    f.close()
+    with open(filename, 'w') as f:
+        json.dump(data, f, sort_keys=True, indent=4, separators=(',', ': '))
 
 
 def notify_users_and_groups(message):
