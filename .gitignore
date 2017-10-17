@@ -1,6 +1,5 @@
 *.json
 settings.py
-__init__.py
 ohno.py
 setup.py
 *.bat
