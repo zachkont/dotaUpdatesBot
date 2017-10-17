@@ -152,7 +152,7 @@ def find_match(message):
                         for hero in heroes_list:
                             if hero['id'] == player['hero_id']:
                                 hero_list.append(hero['localized_name'])
-                                radiant_content = (radiant_content + 
+                                radiant_content = (radiant_content +
                                     hero['localized_name'] + " " +
                                     str(player['kills']) + "/" +
                                     str(player['deaths']) + "/" +
