@@ -130,6 +130,38 @@ class TestUtilJSONFunctions(unittest.TestCase):
 
         self.assertEqual(json_dict, loaded_json)
 
+    def test_deljson_deletes_json_keys(self):
+        """Does deljson correctly delete JSON entries with given keys?"""
+
+        json_dict = {u'one': u'a', u'two': u'b', u'three': u'c'}
+        json_dict_two_deleted = {u'one': u'a', u'three': u'c'}
+
+        with open(self.file_path + '.json', 'w') as f:
+            json.dump(json_dict, f)
+
+        utils.deljson(u'two', self.file_path)
+
+        with open(self.file_path + '.json') as f:
+            json_dict_after_deljson = json.load(f)
+
+        self.assertEqual(json_dict_two_deleted, json_dict_after_deljson)
+
+    def test_deljson_deletes_json_values(self):
+        """Does deljson correctly delete JSON entries with given values?"""
+
+        json_dict = {u'one': u'a', u'two': u'b', u'three': u'c'}
+        json_dict_b_deleted = {u'one': u'a', u'three': u'c'}
+
+        with open(self.file_path + '.json', 'w') as f:
+            json.dump(json_dict, f)
+
+        utils.deljson(u'b', self.file_path)
+
+        with open(self.file_path + '.json') as f:
+            json_dict_after_deljson = json.load(f)
+
+        self.assertEqual(json_dict_b_deleted, json_dict_after_deljson)
+
     def tearDown(self):
         try:
             os.remove(self.file_path)
