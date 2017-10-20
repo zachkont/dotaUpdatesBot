@@ -129,20 +129,32 @@ def end_subscription(message):
 
 @bot.message_handler(commands=['proMatches', 'recentProMatches'])
 def pro_matches(message):
+    """Gets recent pro matches, will give a number of matches equal to argument."""
+
+    default_number_of_posts = 5
+    posts_max = 20
+
     if intime(message):
         cid = getCID(message)
+
+        param = getContent(message)
+        try:
+            param = int(param)
+        except ValueError:
+            param = 0
+
+        number_of_posts = param if 0 < param <= posts_max else default_number_of_posts
 
         open_dota_url = 'https://api.opendota.com/api/proMatches'
         response = requests.get(open_dota_url)
         response_json = response.json()  # Array of 100 most recent pro matches
-        matches_json = response_json[:5]
+        matches_json = response_json[:number_of_posts]
 
         matches_text = []
         for match_json in matches_json:
             matches_text.append(match_short_description(match_json))
 
-        message_text = 'Last 5 pro matches:'
-
+        message_text = 'Last {number} pro matches:'.format(number=number_of_posts)
         for match_text in matches_text:
             message_text = message_text + '\n{match}'.format(match=match_text)
 
