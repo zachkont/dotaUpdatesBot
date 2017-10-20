@@ -6,7 +6,7 @@ import requests
 import feedparser
 import dota2api
 
-from utils import intime, getCID, getContent, loadjson, addUser, deljson
+from utils import intime, getCID, getContent, loadjson, addUser, deljson, match_short_description
 from settings import BOT_TOKEN, DOTA2API_TOKEN
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -188,6 +188,40 @@ def find_match(message):
                 "There has been an error, its message is:\n `{error}`".format(error=ex.msg),
                 parse_mode="Markdown")
             telebot.logger.error(ex)
+
+
+@bot.message_handler(commands=['proMatches', 'recentProMatches'])
+def pro_matches(message):
+    """Gets recent pro matches, will give a number of matches equal to argument."""
+
+    default_number_of_posts = 5
+    posts_max = 20
+
+    if intime(message):
+        cid = getCID(message)
+
+        param = getContent(message)
+        try:
+            param = int(param)
+        except ValueError:
+            param = 0
+
+        number_of_posts = param if 0 < param <= posts_max else default_number_of_posts
+
+        open_dota_url = 'https://api.opendota.com/api/proMatches'
+        response = requests.get(open_dota_url)
+        response_json = response.json()  # Array of 100 most recent pro matches
+        matches_json = response_json[:number_of_posts]
+
+        matches_text = []
+        for match_json in matches_json:
+            matches_text.append(match_short_description(match_json))
+
+        message_text = 'Last {number} pro matches:'.format(number=number_of_posts)
+        for match_text in matches_text:
+            message_text = message_text + '\n{match}'.format(match=match_text)
+
+        bot.send_message(cid, message_text, disable_web_page_preview=True, parse_mode="Markdown")
 
 
 if __name__ == '__main__':
