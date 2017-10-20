@@ -97,7 +97,7 @@ class TestUtilJSONFunctions(unittest.TestCase):
         open(self.file_path + '.json', 'a').close()
 
     def test_addUser_adds_user(self):
-        """Does addUser add user object to given file?"""
+        """Does addUser correctly add user object to given file?"""
 
         user_id = 0
         user_name = u'dummy_name'
@@ -115,6 +115,20 @@ class TestUtilJSONFunctions(unittest.TestCase):
             added_user_json = json.loads(f.read())
 
         self.assertEqual(user_dict_json, added_user_json)
+
+    def test_loadjson_loads_json(self):
+        """Does loadjson correctly load json from the given file?"""
+
+        key = u'dummy_key'
+        value = u'dummy_value'
+        json_dict = {key: value}
+
+        with open(self.file_path + '.json', 'w') as f:
+            json.dump(json_dict, f)
+
+        loaded_json = utils.loadjson(self.file_path)
+
+        self.assertEqual(json_dict, loaded_json)
 
     def tearDown(self):
         try:
