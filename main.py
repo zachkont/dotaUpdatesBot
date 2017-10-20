@@ -61,16 +61,22 @@ def dota_blog(message):
         cid = getCID(message)
         dota_blog_rss_url = "http://blog.dota2.com/feed/"
         feed = feedparser.parse(dota_blog_rss_url)
+
         content = unicode(feed["items"][0]["summary"])
         content = content.split('&#8230', 1)
-        bot.send_message(
-            cid,
-            '*{title}* ```\n\n{content}...\n\n```'
-            .format(
-                title=feed["items"][0]["title"],
-                content=content)
-            + '[Read the entire blog post in your browser]({url})'
-            .format(url=feed["items"][0]["link"]), parse_mode="Markdown", disable_web_page_preview=True)
+        content = content[0]  # content.split gives a list of unicode strings, content[0] is the real content
+        content = content.encode('utf-8')  # If not encoded, unicode characters will cause an error
+
+        text_title = feed["items"][0]["title"].encode('utf-8')
+        text_url = feed["items"][0]["link"].encode('utf-8')
+
+        text_formatted = '*{title}* ```\n\n{content}...\n\n```'.format(title=text_title, content=content)
+
+        link_text_formatted = '[Read the entire blog post in your browser]({url})'.format(url=text_url)\
+
+        message_text = text_formatted + link_text_formatted
+
+        bot.send_message(cid, message_text, disable_web_page_preview=True, parse_mode="Markdown")
 
 
 @bot.message_handler(commands=['subscribe', 'letmeknow'])
