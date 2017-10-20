@@ -1,7 +1,8 @@
 import unittest
 import utils
 import time
-
+import os
+import json
 import telebot.types
 
 
@@ -84,6 +85,43 @@ class TestUtilFunctions(unittest.TestCase):
         message_ten_seconds_earlier = self.dummy_message_at_time(time_ten_seconds_earlier)
 
         self.assertFalse(utils.intime(message_ten_seconds_earlier))
+
+
+class TestUtilJSONFunctions(unittest.TestCase):
+    """Tests for `utils.py` JSON functions"""
+
+    def setUp(self):
+        self.file_path = 'json_function_test'
+
+        # Makes empty file
+        open(self.file_path + '.json', 'a').close()
+
+    def test_addUser_adds_user(self):
+        """Does addUser add user object to given file?"""
+
+        user_id = 0
+        user_name = u'dummy_name'
+        empty_json = json.loads('{}')
+
+        user_dict_json = {u'0': u'dummy_name'}  # JSON loads dict elements as unicode strings
+
+        # addUser requires existing JSON
+        with open(self.file_path + '.json', 'w') as f:
+            json.dump(empty_json, f)
+
+        utils.addUser(user_id, user_name, self.file_path)
+
+        with open(self.file_path + '.json') as f:
+            added_user_json = json.loads(f.read())
+
+        self.assertEqual(user_dict_json, added_user_json)
+
+    def tearDown(self):
+        try:
+            os.remove(self.file_path)
+        except OSError:
+            # File doesn't exist to delete
+            pass
 
 
 if __name__ == '__main__':
