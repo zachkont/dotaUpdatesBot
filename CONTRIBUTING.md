@@ -107,7 +107,7 @@ The project is automatically monitored by [Codacy](https://www.codacy.com/app/za
 
 #### Python Styleguide
 
-The project, finaly, adheres to the [PEP8](https://www.python.org/dev/peps/pep-0008/) guidelines (mostly) except for line length, which I don't really care but will accept as a PR if someone goes into the trouble for it. The most important thing is to use ** 4 spaces** instead of tabs.
+The project, finaly, adheres to the [PEP8](https://www.python.org/dev/peps/pep-0008/) guidelines (mostly) except for line length, which I don't really care but will accept as a PR if someone goes into the trouble for it. The most important thing is to use **4 spaces** instead of tabs.
 
 Also, if there is a lightweight library, that does the task adequately, it is better to use that instead of writing your own function.
 
