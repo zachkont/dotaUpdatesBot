@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
 import telebot
 import logging
 import requests
@@ -8,6 +9,9 @@ import dota2api
 
 from utils import intime, getCID, getContent, loadjson, addUser, deljson
 from settings import BOT_TOKEN, DOTA2API_TOKEN
+
+log = logging.getLogger(__name__)
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)7s] %(message)s')
 
 bot = telebot.TeleBot(BOT_TOKEN)
 telebot.logger.setLevel(logging.ERROR)
@@ -191,7 +195,7 @@ def find_match(message):
 
 
 if __name__ == '__main__':
-    print("main started")
+    log.info("main started")
     while True:
         try:
             bot.polling(none_stop=True)
