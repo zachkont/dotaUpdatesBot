@@ -71,3 +71,45 @@ def intime(message):
 			return True
 	else:
 		return False
+
+def match_short_description(match):
+	"""Creates a short Markdown description for given match with ID, Dotabuff link, league, teams, and winner"""
+	# Match ID with link
+	# Match league if exists
+	# Teams if both exist
+	# Winner
+
+	dotabuff_url = 'https://www.dotabuff.com/matches/'
+
+	match_id = match['match_id']
+	match_url = dotabuff_url + unicode(match_id)
+	match_text = '[{id}]({url})'
+	match_text = match_text.format(id=match_id, url=match_url)
+
+	league = match['league_name']
+	league_text = u'\n{league}'
+	league_text = league_text.format(league=league) if league is not None else ''
+
+	radiant_name = match['radiant_name']
+	dire_name = match['dire_name']
+	team_names = u'\n{radiant} vs. {dire}'
+	team_names = team_names.format(radiant=radiant_name, dire=dire_name) if radiant_name and dire_name else ''
+
+	if match['radiant_win']:
+		if radiant_name is not None:
+			winner = radiant_name
+		else:
+			winner = 'Radiant'
+	else:
+		if dire_name is not None:
+			winner = dire_name
+		else:
+			winner = 'Dire'
+
+	winner_text = '\nWinner: {winner}'
+	winner_text = winner_text.format(winner=winner)
+
+	text = '{id}```{league}{names}{winner}```'
+	text = text.format(id=match_text, league=league_text, names=team_names, winner=winner_text)
+
+	return text
