@@ -136,4 +136,4 @@ def check_for_updates_and_notify():
 print("{}: Checking for new posts has started!".format(datetime.now()), file=log)
 while True:
     check_for_updates_and_notify()
-    time.sleep(60)
+    time.sleep(10)
