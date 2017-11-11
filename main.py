@@ -6,10 +6,9 @@ import requests
 import feedparser
 import dota2api
 
-from utils import intime, getCID, getContent, loadjson, addUser, deljson
+from utils import intime, getCID, getContent, loadjson, addUser, deljson, bot
 from settings import BOT_TOKEN, DOTA2API_TOKEN
 
-bot = telebot.TeleBot(BOT_TOKEN)
 telebot.logger.setLevel(logging.ERROR)
 api = dota2api.Initialise(DOTA2API_TOKEN)
 
@@ -187,13 +186,7 @@ def find_match(message):
                 message,
                 "There has been an error, its message is:\n `{error}`".format(error=ex.msg),
                 parse_mode="Markdown")
-            telebot.logger.error(ex)
 
 
-if __name__ == '__main__':
-    print("main started")
-    while True:
-        try:
-            bot.polling(none_stop=True)
-        except Exception as ex:
-            telebot.logger.error(ex)
+bot.polling(none_stop=False, interval=0)
+            
