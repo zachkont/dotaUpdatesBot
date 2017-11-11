@@ -188,5 +188,5 @@ def find_match(message):
                 parse_mode="Markdown")
 
 
-bot.polling(none_stop=False, interval=0)
+bot.polling(none_stop=True, interval=0)
             
