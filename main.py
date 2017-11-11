@@ -60,7 +60,7 @@ def dota_blog(message):
         cid = getCID(message)
         dota_blog_rss_url = "http://blog.dota2.com/feed/"
         feed = feedparser.parse(dota_blog_rss_url)
-        content = unicode(feed["items"][0]["summary"])
+        content = unicode(feed["items"][0]["summary"], errors='replace')
         content = content.split('&#8230', 1)
         bot.send_message(
             cid,
