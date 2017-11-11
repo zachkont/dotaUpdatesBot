@@ -64,7 +64,7 @@ def get_relevant_magesunite_posts():
         return [post for post in posts if ("/u/Magesunite on" not in post.title) and ("Dota 2 Update" in post.title)]
 
 
-def get_relevant_wykrhm_posts();
+def get_relevant_wykrhm_posts():
     posts = get_reddit_user_posts("wykrhm")
     if posts:
         return [post for post in posts if ("/u/wykrhm on" not in post.title)]
