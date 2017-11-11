@@ -48,17 +48,26 @@ def get_reddit_preview(text):
 
 def get_relevant_sirbelvedere_posts():
     posts = get_reddit_user_posts("SirBelvedere")
-    return [post for post in posts if ("/u/SirBelvedere on" not in post.title) and ("Dota 2 Update" in post.title)]
+    if posts:
+        return [post for post in posts if ("/u/SirBelvedere on" not in post.title) and ("Dota 2 Update" in post.title)]
 
 
 def get_relevant_cyborgmatt_posts():
     posts = get_reddit_user_posts("Cyborgmatt")
-    return [post for post in posts if ("/u/Cyborgmatt on" not in post.title) and ("Dota 2 Update" in post.title)]
+    if posts:
+        return [post for post in posts if ("/u/Cyborgmatt on" not in post.title) and ("Dota 2 Update" in post.title)]
 
 
 def get_relevant_magesunite_posts():
     posts = get_reddit_user_posts("Magesunite")
-    return [post for post in posts if ("/u/Magesunite on" not in post.title) and ("Dota 2 Update" in post.title)]
+    if posts:
+        return [post for post in posts if ("/u/Magesunite on" not in post.title) and ("Dota 2 Update" in post.title)]
+
+
+def get_relevant_wykrhm_posts();
+    posts = get_reddit_user_posts("wykrhm")
+    if posts:
+        return [post for post in posts if ("/u/wykrhm on" not in post.title)]
 
 
 def post_is_fresh(post, filename):
@@ -129,9 +138,11 @@ def check_for_updates_and_notify():
     posts = get_relevant_magesunite_posts()
     notify_subscriber_about_reddit("Magesunite", posts)
 
+    posts = get_relevant_wykrhm_posts()
+    notify_subscriber_about_reddit("wykrhm", posts)
+
     posts = get_dota2blog_posts()
     notify_subscriber_about_dota2blog(posts)
-
 
 print("{}: Checking for new posts has started!".format(datetime.now()), file=log)
 while True:
