@@ -37,8 +37,8 @@ def dota_news(message):
                 url = data['appnews']['newsitems'][0]['url']
                 bot.send_message(
                     cid,
-                    '*{title}*```> \n\n{content_nice}\n\n```'.format(title=title, content_nice=content_nice)
-                    + '[More info here]({url})'.format(url=url),
+                    u'*{title}*```> \n\n{content_nice}\n\n```'.format(title=title, content_nice=content_nice)
+                    + u'[More info here]({url})'.format(url=url),
                     parse_mode="Markdown",
                     disable_web_page_preview=True)
             else:
@@ -60,16 +60,15 @@ def dota_blog(message):
         cid = getCID(message)
         dota_blog_rss_url = "http://blog.dota2.com/feed/"
         feed = feedparser.parse(dota_blog_rss_url)
-        content = feed["items"][0]["summary"].encode("utf-8")
-        content = content.split('&#8230', 1)
+        post_title = feed["items"][0]["title"]
+        post_link = feed["items"][0]["link"]
         bot.send_message(
             cid,
-            '*{title}* ```\n\n{content}...\n\n```'
-            .format(
-                title=feed["items"][0]["title"],
-                content=content)
-            + '[Read the entire blog post in your browser]({url})'
-            .format(url=feed["items"][0]["link"]), parse_mode="Markdown", disable_web_page_preview=True)
+            u'*{title}* ```\n\n```'
+            .format(title = post_title)
+            + u'[Read the blog post in your browser]({url})'
+            .format(url = post_link),
+            parse_mode = "Markdown")
 
 
 @bot.message_handler(commands=['subscribe', 'letmeknow'])
@@ -111,7 +110,7 @@ def end_subscription(message):
             bot.send_message(uid, 'You can\'t unsubscribe without subscribing first dummy!', parse_mode="Markdown")
     elif message.chat.type == 'group' or message.chat.type == 'supergroup':
         if cid in loadjson("grouplist"):
-            bot.reply_to(message, 'Oh no more updates? Okay...', parse_mode="Markdown")
+            bot.reply_to(message, 'Oh, no more updates? Okay...', parse_mode="Markdown")
             gid = str(message.chat.id)
             deljson(gid, "grouplist")
         else:

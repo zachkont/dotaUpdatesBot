@@ -106,7 +106,7 @@ def notify_subscriber_about_reddit(username, posts):
     for post in posts:
         if post_is_fresh(post, "previous{}".format(username.lower())):
             # Compose message text
-            message_text = '[New post from {user}!]({url}) \n\n *{title}* ```\n\n{content}...\n\n```' \
+            message_text = u'[New post from {user}!]({url}) \n\n *{title}* ```\n\n{content}...\n\n```' \
                 .format(user=username, url=post.link, title=post.title, content=get_reddit_preview(post.summary))
             notify_users_and_groups(message_text)
             add_post_to_unfresh_list(post, "previous{}.json".format(username.lower()))
@@ -120,7 +120,7 @@ def notify_subscriber_about_dota2blog(posts):
     for post in posts:
         if post_is_fresh(post, "previousblogposts"):
             # Compose message text
-            message_text = '[New blog post!]({url}) \n\n *{title}* ```\n\n{content}...\n\n```' \
+            message_text = u'[New blog post!]({url}) \n\n *{title}* ```\n\n{content}...\n\n```' \
                 .format(url=post.link, title=post.title, content=get_dota_blog_preview(post.summary))
             notify_users_and_groups(message_text)
             add_post_to_unfresh_list(post, "previousblogposts.json")
