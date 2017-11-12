@@ -118,7 +118,7 @@ def notify_subscriber_about_dota2blog(posts):
             # Compose message text
             message_text = u'[New blog post!]({url}) \n\n *{title}* \n\n' \
                 .format(
-                url = addBlogPostInstantView(post.link), 
+                url = addBlogPostInstantView(post.link),
                 title = post.title)
             notify_users_and_groups(message_text)
             add_post_to_unfresh_list(post, "previousblogposts.json")

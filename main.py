@@ -7,7 +7,7 @@ import feedparser
 import dota2api
 
 from utils import intime, getCID, getContent, loadjson, addUser, deljson, bot, addBlogPostInstantView
-from settings import BOT_TOKEN, DOTA2API_TOKEN
+from settings import DOTA2API_TOKEN
 
 telebot.logger.setLevel(logging.ERROR)
 api = dota2api.Initialise(DOTA2API_TOKEN)
@@ -189,4 +189,4 @@ def find_match(message):
 
 
 bot.polling(none_stop=True, interval=0)
-            
+
