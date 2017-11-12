@@ -6,7 +6,7 @@ import requests
 import feedparser
 import dota2api
 
-from utils import intime, getCID, getContent, loadjson, addUser, deljson, bot
+from utils import intime, getCID, getContent, loadjson, addUser, deljson, bot, addBlogPostInstantView
 from settings import BOT_TOKEN, DOTA2API_TOKEN
 
 telebot.logger.setLevel(logging.ERROR)
@@ -34,10 +34,11 @@ def dota_news(message):
                 title = data['appnews']['newsitems'][0]['title']
                 content = data['appnews']['newsitems'][0]['contents']
                 content_nice = content.replace(" - ", "\n - ")
+                content_nice = content_nice.replace("*", "\n*")
                 url = data['appnews']['newsitems'][0]['url']
                 bot.send_message(
                     cid,
-                    u'*{title}*```> \n\n{content_nice}\n\n```'.format(title=title, content_nice=content_nice)
+                    u'*{title}*```> \n\n{content_nice}\n[...]\n\n```'.format(title=title, content_nice=content_nice)
                     + u'[More info here]({url})'.format(url=url),
                     parse_mode="Markdown",
                     disable_web_page_preview=True)
@@ -61,12 +62,12 @@ def dota_blog(message):
         dota_blog_rss_url = "http://blog.dota2.com/feed/"
         feed = feedparser.parse(dota_blog_rss_url)
         post_title = feed["items"][0]["title"]
-        post_link = feed["items"][0]["link"]
+        post_link = addBlogPostInstantView(feed["items"][0]["link"])
         bot.send_message(
             cid,
             u'*{title}* ```\n\n```'
             .format(title = post_title)
-            + u'[Read the blog post in your browser]({url})'
+            + u'[Read the latest blog post in your browser]({url})'
             .format(url = post_link),
             parse_mode = "Markdown")
 

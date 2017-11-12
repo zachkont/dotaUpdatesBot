@@ -71,3 +71,9 @@ def intime(message):
 			return True
 	else:
 		return False
+
+def addBlogPostInstantView(url):
+  prefix = 'https://t.me/iv?url='
+  postfix = '&rhash=ef812bf2b658b4'
+  instant_view_link = prefix + url + postfix
+  return instant_view_link

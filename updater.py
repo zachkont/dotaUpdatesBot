@@ -10,7 +10,7 @@ import telebot
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-from utils import bot, loadjson
+from utils import bot, loadjson, addBlogPostInstantView
 import sys
 
 reload(sys)
@@ -36,10 +36,6 @@ def get_dota2blog_posts():
 def get_reddit_user_posts(username):
     return get_rss_posts("https://www.reddit.com/user/{}/submitted/.rss?limit=3".format(username),
                          "Reddit feed of the user '{}' not accessible".format(username))
-
-
-def get_dota_blog_preview(text):
-    return text.split(" &#8230;", 1)[0]
 
 
 def get_reddit_preview(text):
@@ -120,8 +116,10 @@ def notify_subscriber_about_dota2blog(posts):
     for post in posts:
         if post_is_fresh(post, "previousblogposts"):
             # Compose message text
-            message_text = u'[New blog post!]({url}) \n\n *{title}* ```\n\n{content}...\n\n```' \
-                .format(url=post.link, title=post.title, content=get_dota_blog_preview(post.summary))
+            message_text = u'[New blog post!]({url}) \n\n *{title}* \n\n' \
+                .format(
+                url = addBlogPostInstantView(post.link), 
+                title = post.title)
             notify_users_and_groups(message_text)
             add_post_to_unfresh_list(post, "previousblogposts.json")
         else:
