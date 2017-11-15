@@ -21,7 +21,7 @@ def send_welcome(message):
     bot.reply_to(message, "Howdy, how are you doing?")
 
 @bot.message_handler(commands=['help'])
-def help(message):
+def get_help(message):
     gitUrl = "https://github.com/zachkont/dotaUpdatesBot"
     redditUrl = "https://www.reddit.com/message/compose/?to=karaflix"
     bot.reply_to(message,
@@ -34,7 +34,7 @@ def help(message):
                     disable_web_page_preview=True)
 
 @bot.message_handler(commands=['info'])
-def info(message):
+def get_info(message):
     gitUrl = "https://github.com/zachkont/dotaUpdatesBot"
     bot.reply_to(message,
                     u'The main use of this bot is to notify you whenever a Dota update gets released.\n'
