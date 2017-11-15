@@ -5,6 +5,7 @@ import telebot
 import requests
 import feedparser
 import dota2api
+import HTMLParser
 
 from utils import intime, getCID, getContent, loadjson, addUser, deljson, bot, addBlogPostInstantView
 from settings import DOTA2API_TOKEN
@@ -15,6 +16,7 @@ api = dota2api.Initialise(DOTA2API_TOKEN)
 heroes_list = api.get_heroes()
 heroes_list = heroes_list["heroes"]
 
+parser = HTMLParser.HTMLParser()
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -58,6 +60,7 @@ def dota_news(message):
                 content = data['appnews']['newsitems'][0]['contents']
                 content_nice = content.replace(" - ", "\n - ")
                 content_nice = content_nice.replace("*", "\n*")
+                content_nice = parser.unescape(content_nice)
                 url = data['appnews']['newsitems'][0]['url']
                 bot.send_message(
                     cid,
