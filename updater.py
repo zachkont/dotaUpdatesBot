@@ -4,14 +4,14 @@ from __future__ import print_function
 
 import json
 import time
+import sys
 import feedparser
 import telebot
 
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-from utils import bot, loadjson, addBlogPostInstantView
-import sys
+from utils import bot, loadjson, deljson, addBlogPostInstantView
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -94,7 +94,7 @@ def notify_users_and_groups(message):
                 print("{}: Message could not be sent to group - Telebot API Error".format(datetime.now()), file=log)
         except Exception as ex:
             telebot.logger.error(ex)
-            print("{}: Message could not be sent to users".format(datetime.now(), file=log)
+            print("{}: Message could not be sent to users".format(datetime.now()), file=log)
 
     # Notify subscribed groups
     for gid in loadjson("grouplist").keys():
