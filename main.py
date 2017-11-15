@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import telebot
 import logging
+import telebot
 import requests
 import feedparser
 import dota2api
@@ -16,9 +16,32 @@ heroes_list = api.get_heroes()
 heroes_list = heroes_list["heroes"]
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Howdy, how are you doing?")
+
+@bot.message_handler(commands=['help'])
+def get_help(message):
+    gitUrl = "https://github.com/zachkont/dotaUpdatesBot"
+    redditUrl = "https://www.reddit.com/message/compose/?to=karaflix"
+    bot.reply_to(message,
+                    u'Did you find a bug or have any questions?\n'
+                    + u'Visit the [GitHub page]({gitUrl})'.format(gitUrl=gitUrl)
+                    + u' for more information or contact'
+                    + u' [/u/karaflix]({redditUrl})'.format(redditUrl=redditUrl)
+                    + u' on reddit!',
+                    parse_mode="Markdown",
+                    disable_web_page_preview=True)
+
+@bot.message_handler(commands=['info'])
+def get_info(message):
+    gitUrl = "https://github.com/zachkont/dotaUpdatesBot"
+    bot.reply_to(message,
+                    u'The main use of this bot is to notify you whenever a Dota update gets released.\n'
+                    + u'Visit the [GitHub page]({gitUrl})'.format(gitUrl=gitUrl)
+                    + u' for more information on what you can do or how to contribute!',
+                    parse_mode="Markdown",
+                    disable_web_page_preview=True)
 
 
 @bot.message_handler(commands=['dotanews', 'dotanew', 'dnews', 'dnew'])

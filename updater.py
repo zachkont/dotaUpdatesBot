@@ -4,14 +4,14 @@ from __future__ import print_function
 
 import json
 import time
+import sys
 import feedparser
 import telebot
 
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-from utils import bot, loadjson, addBlogPostInstantView
-import sys
+from utils import bot, loadjson, deljson, addBlogPostInstantView
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -84,6 +84,14 @@ def notify_users_and_groups(message):
     for user_id in loadjson("userlist"):
         try:
             bot.send_message(user_id, message, parse_mode="Markdown")
+        except telebot.apihelper.ApiException as ex:
+            USER_BLOCK_ERROR = "Forbidden: bot was blocked by the user"
+            if(USER_BLOCK_ERROR in str(ex)):
+                print("{date}: The user {user_id} has blocked the bot. The user will be removed.".format(date=datetime.now(), user_id=user_id), file=log)
+                deljson(user_id, "userlist")
+            else:
+                telebot.logger.error(ex)
+                print("{}: Message could not be sent to group - Telebot API Error".format(datetime.now()), file=log)
         except Exception as ex:
             telebot.logger.error(ex)
             print("{}: Message could not be sent to users".format(datetime.now()), file=log)
@@ -92,6 +100,14 @@ def notify_users_and_groups(message):
     for gid in loadjson("grouplist").keys():
         try:
             bot.send_message(gid, message, parse_mode="Markdown")
+        except telebot.apihelper.ApiException as ex:
+            GROUP_BLOCK_ERROR = "Forbidden: bot was kicked from the group chat"
+            if(GROUP_BLOCK_ERROR in str(ex)):
+                print("{date}: The group {gid} has kicked the bot. The group will be removed.".format(date=datetime.now(), gid=gid), file=log)
+                deljson(gid, "grouplist")
+            else:
+                telebot.logger.error(ex)
+                print("{}: Message could not be sent to group - Telebot API Error".format(datetime.now()), file=log)
         except Exception as ex:
             telebot.logger.error(ex)
             print("{}: Message could not be sent to groups".format(datetime.now()), file=log)
