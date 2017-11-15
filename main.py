@@ -34,7 +34,7 @@ def help(message):
                     disable_web_page_preview=True)
 
 @bot.message_handler(commands=['info'])
-def help(message):
+def info(message):
     gitUrl = "https://github.com/zachkont/dotaUpdatesBot"
     bot.reply_to(message,
                     u'The main use of this bot is to notify you whenever a Dota update gets released.\n'
