@@ -20,14 +20,17 @@ log = open('log.txt', 'a')
 
 
 def get_rss_posts(url, error_message):
-    feed = feedparser.parse(url)
-    if feed:
-        if feed.status == 200:  # OK
-            posts = feed.entries
-        else:
-            posts = None
-            print("{}: {}".format(datetime.now(), error_message), file=log)
-    return posts
+    try:
+    	feed = feedparser.parse(url)
+    	if feed and feed.status:
+            if feed.status == 200:  # OK
+                posts = feed.entries
+            else:
+                posts = None
+                print("{}: {}".format(datetime.now(), error_message), file=log)
+        return posts
+    except AttributeError:
+	return None
 
 
 def get_dota2blog_posts():
