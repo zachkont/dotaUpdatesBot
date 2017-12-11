@@ -10,11 +10,11 @@ Running publicly as [@announcebot](http://telegram.me/announcebot), licensed und
 
 1. Download this repository
 
-2. Setup your Telegram api key and dota2api key
+2. Setup your Telegram API key and Dota2API key
 
-3. Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot api
+3. Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot API
 
-4. Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) dota2api
+4. Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) Dota2API
 
 
 
