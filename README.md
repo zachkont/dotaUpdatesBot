@@ -2,20 +2,19 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba82c2f871a44d3db708b88abeed5f7a)](https://www.codacy.com/app/zachkont/dotaUpdatesBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zachkont/dotaUpdatesBot&amp;utm_campaign=Badge_Grade)
 # dotaUpdatesBot
 
-Telegram Bot for Dota2 updates
+Telegram Bot for Dota2 Updates
 
-Running publicly as [@announcebot](http://telegram.me/announcebot)
+Running publicly as [@announcebot](http://telegram.me/announcebot), licensed under the GNU General Public License.
 
-licensed under the GNU General Public License. 
- 
-## How to setup
-Download this repository
+## How To Setup
 
-Setup your Telegram api key and dota2api key
+1. Download this repository
 
-Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot api
+2. Setup your Telegram api key and dota2api key
 
-Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) dota2api
+3. Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot api
+
+4. Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) dota2api
 
 
 
@@ -29,13 +28,11 @@ Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) dota2api
 |/subscribe|Adds the user or group to the subscription list|
 |/unsubscribe|Removes the user or group from the subscription list|
 |/match \<match_id\>|Returns some info about match with match_id|
- 
+
+## How To Contribute
+
+Read [CONTRIBUTING.MD](https://github.com/zachkont/dotaUpdatesBot/blob/master/CONTRIBUTING.md)
 
 ## Disclaimer
 
-This program is provided "as is" without warranty of any kind
-
-
-
-
-
+This program is provided "as is" without warranty of any kind.
