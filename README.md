@@ -31,7 +31,7 @@ Running publicly as [@announcebot](http://telegram.me/announcebot), licensed und
 
 ## How To Contribute
 
-Read [CONTRIBUTING.MD](https://github.com/zachkont/dotaUpdatesBot/blob/master/CONTRIBUTING.md)
+Read [CONTRIBUTING.MD](https://github.com/zachkont/dotaUpdatesBot/blob/master/CONTRIBUTING.md#how-to-contribute)
 
 ## Disclaimer
 
