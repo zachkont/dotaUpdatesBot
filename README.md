@@ -39,13 +39,13 @@ Some users, including the owner of this repo, felt like they needed a notificati
 
 ## What is Dota2
 
-[Dota2](https://www.dota2.com) is the best game ever. It originated as custom map for WarcraftIII made by Eul and after much controversy it now is the most successful 100% free-to-play game by Valve and Icefrog. Its worst characteristic is the games unique ability to suck up your life. It also has quite a steep learning curve.
+[Dota2](https://www.dota2.com) originated as custom map for WarcraftIII made by Eul and after much controversy it now is the most successful 100% free-to-play game by Valve and Icefrog.
 
-## How To Setup
+## Setting up dotaUpdatesBot
 
 1. Download this repository
 
-2. Setup your Telegram API key and Dota2API key
+2. Setup your [Telegram API key](https://core.telegram.org/api/obtaining_api_id) and [Dota2 API key](https://dota2api.readthedocs.io/en/latest/tutorial.html#getting-an-api-key)
 
 3. Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot API
 
