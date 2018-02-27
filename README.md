@@ -22,7 +22,7 @@ Dota is an old game and the way it keeps the players interested is through const
 
 However, the game's [Reddit page](https://www.reddit.com/r/DotA2/) is quite active and every new patch, changelog or update is posted there. Thanks to some users (specifically u/SirBelvedere and u/magesunite at the time of writing this) who take the time to read through the diffs over at [SteamDB](https://steamdb.info/patchnotes/), the community gets a nice changelog in a Reddit post.
 
-Some users, including the owner of this repo, felt like they needed a notification system without the hassle of an extra app (like IFTTT) so a bot was the most obvious solution for Telegram users.
+Some users, including the owner of this repo, felt like they needed a notification system without the hassle of an extra app (like [IFTTT](https://play.google.com/store/apps/details?id=com.ifttt.ifttt&hl=en)) so a bot was the most obvious solution for Telegram users.
 
 ## What is Telegram
 
@@ -39,7 +39,7 @@ Some users, including the owner of this repo, felt like they needed a notificati
 
 ## What is Dota2
 
-[Dota2](https://www.dota2.com) originated as custom map for WarcraftIII made by Eul and after much controversy it now is the most successful 100% free-to-play game by Valve and Icefrog.
+[Dota2](https://www.dota2.com) originated as custom map for [Warcraft III](http://us.blizzard.com/en-us/games/war3/) made by Eul and after much controversy it now is the most successful 100% free-to-play game by Valve and Icefrog.
 
 ## Setting up dotaUpdatesBot
 
@@ -68,4 +68,4 @@ Read [CONTRIBUTING.MD](https://github.com/zachkont/dotaUpdatesBot/blob/master/CO
 
 ## Disclaimer
 
-This program is provided "as is" without warranty of any kind.
+This program is provided under the GNU GPLv3 License. As such it is shipped "as is" and the authors are not liable and provide no warranty. [Read more](LICENSE).
