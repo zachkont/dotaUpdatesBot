@@ -11,8 +11,8 @@ Running publicly as [@announcebot](http://telegram.me/announcebot), licensed und
 
 - [About the project](#about-dotaupdatesbot)
   - [What is Telegram](#what-is-telegram)
-  - [What are telegram bots](#what-are-telegram-bots)
-  - [What is dota2](#what-is-dota2)
+  - [What are Telegram bots](#what-are-telegram-bots)
+  - [What is Dota2](#what-is-dota2)
 
 # About dotaUpdatesBot
 
@@ -20,13 +20,13 @@ This bot serves a simple purpose, provide an easy interface for Telegram users t
 
 Dota is an old game and the way it keeps the players interested is through constant updates. However they are irregular and the userbase is basically craving for them. The big changes have an official changelog at the [official blog](https://blog.dota2.com). Some smaller patches get notes in steam news but the rest never see the light of day.
 
-However, the game's [Reddit page](https://www.reddit.com/r/DotA2/) is quite active and every new patch, changelog or update is posted there. Thanks to some users (specifically u/SirBelvedere and u/magesunite at the time of writing this) who take the time to read through the diffs over at steam.db, the community gets a nice changelog in a Reddit post.
+However, the game's [Reddit page](https://www.reddit.com/r/DotA2/) is quite active and every new patch, changelog or update is posted there. Thanks to some users (specifically u/SirBelvedere and u/magesunite at the time of writing this) who take the time to read through the diffs over at [SteamDB](https://steamdb.info/patchnotes/), the community gets a nice changelog in a Reddit post.
 
-Some users, including the owner of this repo, felt like they needed a notification system for that without the need for an extra app (like IFTTT) so this was the most obvious solution for Telegram users.
+Some users, including the owner of this repo, felt like they needed a notification system without the hassle of an extra app (like IFTTT) so a bot was the most obvious solution for Telegram users.
 
 ## What is Telegram
 
-[Telegram](https://telegram.org/) is a messaging application, similar to whatsapp or signal. The main differences are:
+[Telegram](https://telegram.org/) is a messaging application, similar to WhatsApp or Signal. The main differences are:
 
 - texts are not end-to-end encypted by default (which allows for a single account to use multiple clients seamlessly)
 - the encryption algorithm is not open source
