@@ -43,13 +43,43 @@ Some users, including the owner of this repo, felt like they needed a notificati
 
 ## Setting up dotaUpdatesBot
 
-1. Download this repository
+1. Download or clone this repository using `git clone https://github.com/zachkont/dotaUpdatesBot.git`
 
-2. Setup your [Telegram API key](https://core.telegram.org/api/obtaining_api_id) and [Dota2 API key](https://dota2api.readthedocs.io/en/latest/tutorial.html#getting-an-api-key)
+2. Make sure `python2.7` and `pip` version 9+ are installed
 
-3. Install [eternoir](https://github.com/eternnoir/pyTelegramBotAPI/) Telegram bot API
+3. Setup your [Telegram API key](https://core.telegram.org/api/obtaining_api_id) and optionally your [Dota2 API key](https://dota2api.readthedocs.io/en/latest/tutorial.html#getting-an-api-key)
 
-4. Install [joshuaduffy](https://github.com/joshuaduffy/dota2api) Dota2API
+4. Copy the `settings.py.example` into `settings.py` and fill in your API keys. You can leave the `crisis account` variable empty or delete it alltogether.
+
+5. Create the required `.json` files and initalize them with `{}`. These are:
+
+* previousblogposts.json
+* previouscyborgmatt.json
+* previousjasons.json
+* previousmagesunite.json
+* previoussirbelvedere.json
+* previouswykrhm.json
+* userlist.json
+* grouplist.json
+
+or just copy and paste the following command on Linux:
+```
+echo {} > previousblogposts.json &&
+cp previousblogposts.json previouscyborgmatt.json &&
+cp previousblogposts.json previousjasons.json &&
+cp previousblogposts.json previousmagesunite.json &&
+cp previousblogposts.json previoussirbelvedere.json &&
+cp previousblogposts.json previouswykrhm.json &&
+cp previousblogposts.json userlist.json &&
+cp previousblogposts.json grouplist.json
+```
+
+6. Install the requirements using pip via `pip install -r requirements.txt`
+
+7. Run main.py for the command functionality with
+`python main.py`
+or updater.py for the dota update subscription functionality with
+`python updater.py` 
 
 ## Commands
 
