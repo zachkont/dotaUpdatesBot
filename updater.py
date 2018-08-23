@@ -7,11 +7,13 @@ import time
 import sys
 import feedparser
 import telebot
+from datamanager import DictManager
+import subscribermanager as subman
 
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-from utils import bot, loadjson, deljson, addBlogPostInstantView
+from utils import bot, addBlogPostInstantView
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -71,7 +73,8 @@ def get_relevant_wykrhm_posts():
 
 
 def post_is_fresh(post, filename):
-    return post.title not in loadjson(filename)
+    manager = DictManager(filename)
+    return post.title not in manager.data()
 
 
 def add_post_to_unfresh_list(post, filename):
@@ -84,14 +87,14 @@ def add_post_to_unfresh_list(post, filename):
 
 def notify_users_and_groups(message):
     # Notify subscribed users
-    for user_id in loadjson("userlist"):
+    for user_id in subman.getUsers():
         try:
             bot.send_message(user_id, message, parse_mode="Markdown")
         except telebot.apihelper.ApiException as ex:
             USER_BLOCK_ERROR = "Forbidden: bot was blocked by the user"
             if(USER_BLOCK_ERROR in str(ex)):
                 print("{date}: The user {user_id} has blocked the bot. The user will be removed.".format(date=datetime.now(), user_id=user_id), file=log)
-                deljson(user_id, "userlist")
+                subman.deleteUser(user_id)
             else:
                 telebot.logger.error(ex)
                 print("{}: Message could not be sent to group - Telebot API Error".format(datetime.now()), file=log)
@@ -100,14 +103,14 @@ def notify_users_and_groups(message):
             print("{}: Message could not be sent to users".format(datetime.now()), file=log)
 
     # Notify subscribed groups
-    for gid in loadjson("grouplist").keys():
+    for gid in subman.getGroups().keys():
         try:
             bot.send_message(gid, message, parse_mode="Markdown")
         except telebot.apihelper.ApiException as ex:
             GROUP_BLOCK_ERROR = "Forbidden: bot was kicked from the group chat"
             if(GROUP_BLOCK_ERROR in str(ex)):
                 print("{date}: The group {gid} has kicked the bot. The group will be removed.".format(date=datetime.now(), gid=gid), file=log)
-                deljson(gid, "grouplist")
+                subman.deleteGroup(gid)
             else:
                 telebot.logger.error(ex)
                 print("{}: Message could not be sent to group - Telebot API Error".format(datetime.now()), file=log)

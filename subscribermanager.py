@@ -1,41 +1,29 @@
 #!/usr/bin/env python
-import json
-import errno
+from datamanager import DictManager
 
-class SubscriberManager:
-    def __init__(self, filename):
-        self.filename = filename
+USERFILE = 'userlist.json'
+GROUPFILE = 'grouplist.json'
 
-    def subscribers(self):
-        try:
-            with open(self.filename, 'r') as subscriber_file:
-               subscribers = json.load(subscriber_file)
-               return subscribers
-        except IOError as e:
-            if e.errno is errno.ENOENT:
-                return {}
-            else:
-                raise
+def addUser(user_id, username):
+	manager = DictManager(USERFILE)
+	manager.add((user_id, username))
 
-    def add(self, subscriber_id, subscriber_name):
-        current_subscribers = self.subscribers()
-        if subscriber_id in current_subscribers and subscriber_name == current_subscribers[subscriber_id]:
-            return False
-        subscriber = {subscriber_id: subscriber_name}
-        current_subscribers.update(subscriber)
+def getUsers():
+	manager = DictManager(USERFILE)
+	return manager.data()
 
-        with open(self.filename, 'w') as subscriber_file:
-            json.dump(current_subscribers, subscriber_file)
-            return True
-        return False
+def deleteUser(user_id):
+	manager = DictManager(USERFILE)
+	return manager.delete(user_id)
 
-    def delete(self, subscriber_id):
-        current_subscribers = self.subscribers()
-        subscriber_id = str(subscriber_id)
-        if str(subscriber_id) not in current_subscribers.keys():
-            return False
-        del current_subscribers[subscriber_id]
-        with open(self.filename, 'w') as subscriber_file:
-            json.dump(current_subscribers, subscriber_file)
-            return True
-        return False
+def addGroup(group_id, group_name):
+	manager = DictManager(GROUPFILE)
+	manager.add((group_id, group_name))
+
+def getGroups():
+    manager = DictManager(GROUPFILE)
+    return manager.data()
+
+def deleteGroup(group_id):
+    manager = DictManager(GROUPFILE)
+    return manager.delete(group_id)

@@ -32,38 +32,6 @@ def getContent(text):
 	else:
 		pass
 
-def addUser(userID, userName, filename):
-	user = {
-		userID : userName
-	}
-	with open(filename + '.json') as f:
-		data = json.load(f)
-	data.update(user)
-	with open(filename + '.json', 'w') as f:
-		json.dump(data, f)
-
-def loadjson(filename):
-	with open(filename + '.json') as f:
-		data = json.load(f)
-		if filename == "suggestion" or filename == 'todo':
-			data = SortedDict(data)
-	return data
-
-def deljson(value, filename):
-	data = loadjson(filename)
-	for key in data.keys():
-		if key == value:
-			del data[key]
-			with open(filename + '.json', 'w') as f:
-				json.dump(data, f)
-			return True
-		elif data[key] == value:
-			del data[key]
-			with open(filename + '.json', 'w') as f:
-				json.dump(data, f)
-			return True
-	return False
-
 def intime(message):
 	timeRange = time.mktime(datetime.now().timetuple())
 	if int(timeRange - message.date) < 10:

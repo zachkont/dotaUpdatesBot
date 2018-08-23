@@ -7,8 +7,9 @@ import feedparser
 import dota2api
 import HTMLParser
 
-from utils import intime, getCID, getContent, loadjson, addUser, deljson, bot, addBlogPostInstantView
+from utils import intime, getCID, getContent, bot, addBlogPostInstantView
 from settings import DOTA2API_TOKEN
+import subscribermanager as subman
 
 telebot.logger.setLevel(logging.ERROR)
 api = dota2api.Initialise(DOTA2API_TOKEN)
@@ -104,20 +105,20 @@ def start_subscription(message):
     cid = str(message.chat.id)
 
     if message.chat.type == 'private':
-        if uid not in loadjson("userlist"):
-            addUser(uid, message.from_user.first_name, "userlist")
+        if uid not in subman.getUsers():
+            subman.addUser(uid, message.from_user.first_name)
             bot.send_message(uid, 'You will now receive updates!', parse_mode="Markdown")
         else:
             bot.send_message(uid, 'halloooooo', parse_mode="Markdown")
     elif message.chat.type == 'group' or message.chat.type == 'supergroup':
-        if cid not in loadjson("grouplist"):
+        if cid not in subman.getGroups():
             bot.reply_to(
                 message,
                 'Hello fans, this awesome group is now added and I will keep you guys up to date',
                 parse_mode="Markdown")
             gid = str(message.chat.id)
             gname = message.chat.title
-            addUser(gid, gname, "grouplist")
+            subman.addGroup(gid, gname)
         else:
             bot.send_message(cid, 'Hello again fans, your group has already been registered', parse_mode="Markdown")
     else:
@@ -130,16 +131,16 @@ def end_subscription(message):
     cid = str(message.chat.id)
 
     if message.chat.type == 'private':
-        if uid in loadjson("userlist"):
-            deljson(uid, "userlist")
+        if uid in subman.getUsers():
+            subman.deleteUser(uid)
             bot.send_message(uid, 'You have been removed from the subscription list', parse_mode="Markdown")
         else:
             bot.send_message(uid, 'You can\'t unsubscribe without subscribing first dummy!', parse_mode="Markdown")
     elif message.chat.type == 'group' or message.chat.type == 'supergroup':
-        if cid in loadjson("grouplist"):
+        if cid in subman.getGroups():
             bot.reply_to(message, 'Oh, no more updates? Okay...', parse_mode="Markdown")
             gid = str(message.chat.id)
-            deljson(gid, "grouplist")
+            subman.deleteGroup(gid)
         else:
             bot.send_message(cid, 'Not subscibed yet', parse_mode="Markdown")
     else:
