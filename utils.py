@@ -6,6 +6,7 @@ import time
 import json
 import re
 import datetime
+import os.path
 from sortedcontainers import SortedDict
 from datetime import datetime
 from settings import BOT_TOKEN
@@ -15,6 +16,29 @@ bot = telebot.TeleBot(BOT_TOKEN)
 adminid = bot.get_me()
 
 uptime = datetime.now()
+
+# check for presence of required json files
+generateEmptyJson()
+
+def generateEmptyJson():
+	jsonFiles = [
+		"previousblogposts",
+		"previouscyborgmatt",
+		"previousjasons",
+		"previousmagesunite",
+		"previoussirbelvedere",
+		"previouswykrhm",
+		"userlist",
+		"grouplist"
+	]
+
+	for file in jsonFiles:
+		filename = file + ".json"
+		# prevent overwriting of file if it already exists
+		if not os.path.isfile(filename):
+			f = open(filename, "w+")
+			f.writelines("{\n\n}")
+			f.close()
 
 def getCID(message):
 	return message.chat.id
