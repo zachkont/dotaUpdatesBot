@@ -64,7 +64,7 @@ def dota_news(message):
                 url = data['appnews']['newsitems'][0]['url']
                 bot.send_message(
                     cid,
-                    u'*{title}*```> \n{content_nice}\n[...]\n```'.format(title=title, content_nice=content_nice)
+                    u'*{title}*```> \n{content_nice}\n```'.format(title=title, content_nice=content_nice)
                     + u'[More info here]({url})'.format(url=url),
                     parse_mode="Markdown",
                     disable_web_page_preview=True)
