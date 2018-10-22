@@ -43,8 +43,11 @@ def get_reddit_user_posts(username):
 
 
 def get_reddit_preview(text):
-    return BeautifulSoup(text, "html.parser").text[:266]  # 266 is Max. length of dota blog summaries
-
+    preview = BeautifulSoup(text, "html.parser")
+     # filter out extra reddit info before trimming
+    formattedPreview = preview[:preview.find("submitted by    /u/")]
+    formattedPreview = formattedPreview[:266] # 266 is Max. length of dota blog summaries
+    return formattedPreview
 
 def get_relevant_sirbelvedere_posts():
     posts = get_reddit_user_posts("SirBelvedere")
