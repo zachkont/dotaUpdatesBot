@@ -67,6 +67,8 @@ def addUser(userID, userName, filename):
 		json.dump(data, f)
 
 def loadjson(filename):
+	# make sure Json files are properly created before loading.
+	generateEmptyJson()
 	with open(filename + '.json') as f:
 		data = json.load(f)
 		if filename == "suggestion" or filename == 'todo':
