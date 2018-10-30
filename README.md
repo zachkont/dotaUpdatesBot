@@ -51,32 +51,9 @@ Some users, including the owner of this repo, felt like they needed a notificati
 
 4. Copy the `settings.py.example` into `settings.py` and fill in your API keys. You can leave the `crisis account` variable empty or delete it alltogether.
 
-5. Create the required `.json` files and initalize them with `{}`. These are:
+5. Install the requirements using pip via `pip install -r requirements.txt`
 
-* previousblogposts.json
-* previouscyborgmatt.json
-* previousjasons.json
-* previousmagesunite.json
-* previoussirbelvedere.json
-* previouswykrhm.json
-* userlist.json
-* grouplist.json
-
-or just copy and paste the following command on Linux:
-```
-echo {} > previousblogposts.json &&
-cp previousblogposts.json previouscyborgmatt.json &&
-cp previousblogposts.json previousjasons.json &&
-cp previousblogposts.json previousmagesunite.json &&
-cp previousblogposts.json previoussirbelvedere.json &&
-cp previousblogposts.json previouswykrhm.json &&
-cp previousblogposts.json userlist.json &&
-cp previousblogposts.json grouplist.json
-```
-
-6. Install the requirements using pip via `pip install -r requirements.txt`
-
-7. Run main.py for the command functionality with
+6. Run main.py for the command functionality with
 `python main.py`
 or updater.py for the dota update subscription functionality with
 `python updater.py` 
