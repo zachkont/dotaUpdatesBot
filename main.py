@@ -146,14 +146,15 @@ def end_subscription(message):
         pass
 
 
-@bot.message_handler(regexp="match (\d.*?)(\D|$)")
+@bot.message_handler(regexp="match (\d.*?)(\D|$)|match")
 def find_match(message):
     if intime(message):
         cid = getCID(message)
         content = getContent(message)
 
         match_id = message.text
-        match_id = match_id.split()[1]
+        if match_id != '/match':
+            match_id = match_id.split()[1]
         try:
             match = api.get_match_details(match_id)
 
