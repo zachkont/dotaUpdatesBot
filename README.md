@@ -1,3 +1,5 @@
+# This project has been deprecated in favor of a node-based version that you can find at https://github.com/GameFeeder/GameFeeder
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba82c2f871a44d3db708b88abeed5f7a)](https://www.codacy.com/app/zachkont/dotaUpdatesBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zachkont/dotaUpdatesBot&amp;utm_campaign=Badge_Grade)
 
